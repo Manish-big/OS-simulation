@@ -2,6 +2,31 @@
 #include<conio.h>
 #include<stdlib.h>
 
+void rearrange_process_queue(int pq[],int rt[],int pty[],int n,int running_processes)
+{
+    int i;
+    if(pty[0]<pty[1])
+    {
+	int temp = pq[0];
+    for(i=0;i<running_processes;i++)
+    {
+        pq[i] = pq[i+1];
+    }
+    pq[running_processes-1] = temp;
+    
+    }
+    if(rt[pq[0]-1]==0)
+    {   
+    	int temp = pq[0];
+        for(i=0;i<running_processes;i++)
+        {
+        pq[i] = pq[i+1];
+        }
+    pq[running_processes-1] = temp;
+	running_processes=running_processes-1;
+	}
+    
+}
 int main()
 {
   int count,i,j;
@@ -42,6 +67,52 @@ int at[10],bt[10],rt[10],pq[10],pty[10],pty1[10],pflag[10],tat[10],wt[10];
           printf("Invalid Data!");
           return 0;
       }
+      int current = 0;
+
+  int running_processes = 0;
+  int x=0;
+    pq[0] = 1;
+    running_processes = 1;
+    pflag[0] = 1;
+    int flag = 0;
+
+    while(running_processes!=0)
+        {
+        flag = 0; 
+        x++;
+        if(rt[pq[0]-1]>time_quantum)
+        {   
+            rt[pq[0]-1] = rt[pq[0]-1] - time_quantum;
+            time = time + time_quantum;
+            current = time;
+        }
+
+        else
+        {   
+            time = time + rt[pq[0]-1];
+            rt[pq[0]-1] = 0;
+            flag = 1;
+            current = time;
+            tat[pq[0]-1] = time - at[pq[0]-1];
+            wt[pq[0]-1] = tat[pq[0]-1] - bt[pq[0]-1];
+        }
+        
+        for(i=0;i<n;i++)
+        {
+            if(at[i] <= time && pflag[i]== 0)
+            {
+                pq[running_processes] = i+1;
+                running_processes = running_processes + 1;
+                pflag[i] = 1;
+            }
+        }
+        
+		if(x%2==0)
+		minptyinc(pty,n);
+
+        rearrange_process_queue(pq,rt,pty,n,running_processes);
+
+      //73886MsMsAm13058 
  }
   
 }
