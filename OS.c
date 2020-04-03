@@ -2,6 +2,17 @@
 #include<conio.h>
 #include<stdlib.h>
 
+
+float avg_wait_time(int wt[], int n)
+{
+    float x = 0;
+    int i,sum = 0;
+    for(i=0;i<n;i++)
+        sum = sum + wt[i];
+x = sum * 1.0;
+    x = x / n;
+    return x;
+}
 void rearrange_process_queue(int pq[],int rt[],int pty[],int n,int running_processes)
 {
     int i;
