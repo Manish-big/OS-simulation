@@ -1,8 +1,6 @@
 #include<stdio.h>
 #include<conio.h>
 #include<stdlib.h>
-
-
 float avg_wait_time(int wt[], int n)
 {
     float x = 0;
@@ -24,7 +22,6 @@ float avg_turnaround_time(int tat[], int n)
     x = x / n;
     return x;
 }
-
 void rearrange_process_queue(int pq[],int rt[],int pty[],int n,int running_processes)
 {
     int i;
@@ -49,6 +46,21 @@ void rearrange_process_queue(int pq[],int rt[],int pty[],int n,int running_proce
 	running_processes=running_processes-1;
 	}
     
+}
+void minptyinc(int pty[],int n)
+{
+	int i,min=pty[0];
+	for(i=1;i<n;i++)
+	{
+		if(min>=pty[i])
+		min=pty[i];
+	}
+	for(i=0;i<n;i++)
+	{
+		if(pty[i]==min)
+		pty[i]++;
+	}
+	
 }
 int main()
 {
@@ -90,7 +102,8 @@ int at[10],bt[10],rt[10],pq[10],pty[10],pty1[10],pflag[10],tat[10],wt[10];
           printf("Invalid Data!");
           return 0;
       }
-      int current = 0;
+ }
+  int current = 0;
 
   int running_processes = 0;
   int x=0;
@@ -134,6 +147,7 @@ int at[10],bt[10],rt[10],pq[10],pty[10],pty1[10],pflag[10],tat[10],wt[10];
 		minptyinc(pty,n);
 
         rearrange_process_queue(pq,rt,pty,n,running_processes);
+
         if(flag == 1)
         running_processes = running_processes - 1;
 }
@@ -149,8 +163,9 @@ printf("\n\nExecution Data:\n");
   printf("Avg Turnaround Time = %f\n",avg_turnaround_time(tat,n));
   
 return 0;
-
-      //73886MsMsAm13058 
- }
-  
 }
+
+       
+ 
+  
+
